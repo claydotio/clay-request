@@ -1,0 +1,17 @@
+{
+  "name": "clay-request",
+  "version": "0.0.1",
+  "main": "index.coffee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claydotio/clay-request.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/claydotio/clay-request/issues"
+  },
+  "homepage": "https://github.com/claydotio/clay-request",
+  "dependencies": {
+    "lodash": "^3.0.1"
+  }
+}
