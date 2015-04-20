@@ -1,14 +1,22 @@
 _ = require 'lodash'
+Qs = require 'qs'
 
-serializeQueryString = (obj, prefix) ->
-  str = []
-  for p of obj
-    if obj.hasOwnProperty(p)
-      k = (if prefix then prefix + '[' + p + ']' else p)
-      v = obj[p]
-      str.push (if typeof v is 'object' then serializeQueryString(v, k) \
-                else encodeURIComponent(k) + '=' + encodeURIComponent(v))
-  str.join '&'
+Promise = if window?
+  window.Promise
+else
+  # Avoid webpack include
+  _Promise = 'bluebird'
+  require _Promise
+
+fetch = if window?
+  window.fetch
+else
+  # Avoid webpack include
+  _fetch = 'node-fetch'
+  fetch = require _fetch
+  fetch.Promise = Promise
+  fetch
+
 
 statusCheck = (response) ->
   if response.status >= 200 and response.status < 300
@@ -27,8 +35,14 @@ module.exports = (url, options) ->
     options.body = JSON.stringify options.body
 
   if _.isObject options?.qs
-    url += '?' + serializeQueryString options.qs
+    url += '?' + Qs.stringify options.qs
 
-  window.fetch url, options
+  fetch url, options
   .then statusCheck
   .then toJson
+  .catch (err) ->
+    if err?.json
+      err.json().then (error) ->
+        throw error
+    else
+      throw err

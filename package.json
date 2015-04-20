@@ -12,6 +12,9 @@
   },
   "homepage": "https://github.com/claydotio/clay-request",
   "dependencies": {
-    "lodash": "^3.0.1"
+    "bluebird": "^2.9.24",
+    "lodash": "^3.0.1",
+    "node-fetch": "^1.1.0",
+    "qs": "^2.4.1"
   }
 }

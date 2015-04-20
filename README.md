@@ -1,1 +1,1 @@
-TODO: compile to js, and tests
+TODO: compile to js, and tests, and docs
