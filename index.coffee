@@ -17,7 +17,6 @@ else
   fetch.Promise = Promise
   fetch
 
-
 statusCheck = (response) ->
   if response.status >= 200 and response.status < 300
     Promise.resolve response
@@ -40,9 +39,3 @@ module.exports = (url, options) ->
   fetch url, options
   .then statusCheck
   .then toJson
-  .catch (err) ->
-    if err?.json
-      err.json().then (error) ->
-        throw error
-    else
-      throw err
