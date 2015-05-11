@@ -17,6 +17,25 @@ else
   fetch.Promise = Promise
   fetch
 
+class RequestError extends Error
+  constructor: ({res}) ->
+    @type = res.type
+    @url = res.url
+    @status = res.status
+    @ok = res.ok
+    @statusText = res.statusText
+    @headers = res.headers
+    @bodyUsed = res.bodyUsed
+    @arrayBuffer = res.arrayBuffer
+    @blob = res.blob
+    @formData = res.formData
+    @json = res.json
+    @text = res.text
+
+    @name = 'RequestError'
+    @message = res.statusText
+    @stack = (new Error()).stack
+
 statusCheck = (response) ->
   if response.status >= 200 and response.status < 300
     Promise.resolve response
@@ -39,3 +58,8 @@ module.exports = (url, options) ->
   fetch url, options
   .then statusCheck
   .then toJson
+  .catch (err) ->
+    if err.ok?
+      throw new RequestError {res: err}
+    else
+      throw err
