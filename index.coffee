@@ -37,7 +37,6 @@ class RequestError extends Error
     @stack = (new Error()).stack
 
 statusCheck = (response) ->
-  console.log 'checking status'
   if response.status >= 200 and response.status < 300
     Promise.resolve response
   else
