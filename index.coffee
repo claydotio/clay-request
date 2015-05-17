@@ -37,13 +37,19 @@ class RequestError extends Error
     @stack = (new Error()).stack
 
 statusCheck = (response) ->
+  console.log 'checking status'
   if response.status >= 200 and response.status < 300
     Promise.resolve response
   else
     Promise.reject response
 
 toJson = (response) ->
-  if response.status is 204 then null else response.json()
+  if response.headers.get('Content-Type') is 'application/json'
+    if response.status is 204
+    then null
+    else response.json()
+  else
+    response.text()
 
 module.exports = (url, options) ->
   if _.isObject options?.body or _.isArray options?.body
