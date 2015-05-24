@@ -19,7 +19,7 @@ request '/getQs', {qs: {a: 2}} # /getQs?a=2
 .then (json) ->
   # parsed json
 
-# Error trigger promise failure
+# Errors trigger promise failure
 request '/404'
 .catch (err) ->
   # RequestError object
