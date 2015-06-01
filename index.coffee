@@ -49,6 +49,11 @@ toJson = (response) ->
     else response.json()
   else
     response.text()
+    .then (text) ->
+      try
+        JSON.parse text
+      catch
+        text
 
 module.exports = (url, options) ->
   if _.isObject options?.body or _.isArray options?.body
