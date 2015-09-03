@@ -8,9 +8,7 @@ else
   _Promise = 'bluebird'
   require _Promise
 
-fetch = if window?
-  window.fetch
-else
+nodeFetch = unless window?
   # Avoid webpack include
   _fetch = 'node-fetch'
   fetch = require _fetch
@@ -65,8 +63,11 @@ module.exports = (url, options) ->
   if _.isObject options?.qs
     url += '?' + Qs.stringify options.qs
 
-  fetch url, options
-  .then statusCheck
+  (if window?
+    window.fetch url, options
+  else
+    nodeFetch url, options
+  ).then statusCheck
   .then toJson
   .catch (err) ->
     if err.ok?
