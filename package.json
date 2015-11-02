@@ -1,14 +1,11 @@
 {
-  "name": "isomorphic-seed",
-  "version": "0.0.0",
-  "description": "Scaffolding for isomorphic coffeescript libraries",
+  "name": "clay-request",
+  "version": "0.4.3",
+  "description": "Isomorphic request library",
   "keywords": [
     "isomorphic",
-    "scaffolding",
-    "library",
-    "bootstrap",
-    "coffee",
-    "coffeescript"
+    "request",
+    "http"
   ],
   "main": "src/index.coffee",
   "scripts": {
@@ -17,11 +14,21 @@
     "watch-phantom": "node_modules/gulp/bin/gulp.js watch:phantom",
     "preversion": "npm test"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/claydotio/clay-request.git"
+  },
   "license": "MIT",
   "author": "Zolmeister (https://zolmeister.com/)",
+  "bugs": {
+    "url": "https://github.com/claydotio/clay-request/issues"
+  },
+  "homepage": "https://github.com/claydotio/clay-request",
   "dependencies": {
-    "coffee-script": "^1.9.3",
-    "lodash": "^3.10.0"
+    "bluebird": "^2.9.24",
+    "lodash": "^3.0.1",
+    "node-fetch": "^1.1.0",
+    "qs": "^2.4.1"
   },
   "devDependencies": {
     "b-assert": "^0.1.2",
@@ -41,16 +48,5 @@
     "mocha": "^2.2.5",
     "phantomjs": "^1.9.17",
     "webpack-stream": "^2.0.0"
-  },
-  "directories": {
-    "test": "test"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Zorium/isomorphic-seed.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Zorium/isomorphic-seed/issues"
-  },
-  "homepage": "https://github.com/Zorium/isomorphic-seed"
+  }
 }
