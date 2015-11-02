@@ -1,6 +1,6 @@
 {
   "name": "clay-request",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Isomorphic request library",
   "keywords": [
     "isomorphic",
