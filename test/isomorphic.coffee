@@ -1,14 +1,31 @@
-# b = require 'b-assert'
-#
-# example = require '../src'
-#
-# it 'compares equals', ->
-#   res = example.compare 'a', 'a'
-#   b res, true
-#
-# it 'compares non-equals', ->
-#   res = example.compare 'b', 'a'
-#   b res, false
+b = require 'b-assert'
+zock = require 'zock'
 
-it 'noop', ->
-  null
+request = require '../src'
+
+it 'requests', ->
+  zock
+    .base 'http://example.com'
+    .get '/test'
+    .reply (req) ->
+      b req.body, {bb: 'cc'}
+      b req.query, {xxx: 'yyy'}
+      {a: 'b'}
+    .post '/test'
+    .reply (req) ->
+      b req.body, {cc: 'dd'}
+      b req.query, {yyy: 'xxx'}
+      {c: 'd'}
+    .withOverrides ->
+      request 'http://example.com/test',
+        method: 'get'
+        body: {bb: 'cc'}
+        qs: {xxx: 'yyy'}
+      .then (res) ->
+        b res, {a: 'b'}
+        request 'http://example.com/test',
+          method: 'post'
+          body: {cc: 'dd'}
+          qs: {yyy: 'xxx'}
+      .then (res) ->
+        b res, {c: 'd'}
