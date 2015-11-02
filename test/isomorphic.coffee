@@ -29,3 +29,18 @@ it 'requests', ->
           qs: {yyy: 'xxx'}
       .then (res) ->
         b res, {c: 'd'}
+
+it 'handles errors', ->
+  zock
+    .base 'http://example.com'
+    .get '/test'
+    .reply 400, {err: 'err'}
+    .withOverrides ->
+      request 'http://example.com/test'
+      .then ->
+        throw new Error 'expected error'
+      , (err) ->
+        b err.name, 'RequestError'
+        err.res.json()
+        .then (json) ->
+          b json, {err: 'err'}

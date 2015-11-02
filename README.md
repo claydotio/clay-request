@@ -23,24 +23,13 @@ request '/getQs', {qs: {a: 2}} # /getQs?a=2
 request '/404'
 .catch (err) ->
   # RequestError object
+  err.res.json().then -> # handle error
 
 # RequestError
 class RequestError extends Error
   constructor: ({res}) ->
-    @type = res.type
-    @url = res.url
-    @status = res.status
-    @ok = res.ok
-    @statusText = res.statusText
-    @headers = res.headers
-    @bodyUsed = res.bodyUsed
-    @arrayBuffer = res.arrayBuffer
-    @blob = res.blob
-    @formData = res.formData
-    @json = res.json
-    @text = res.text
-
     @name = 'RequestError'
     @message = res.statusText
     @stack = (new Error()).stack
+    @res = res
 ```

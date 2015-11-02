@@ -17,6 +17,12 @@ nodeFetch = unless window?
 
 class RequestError extends Error
   constructor: ({res}) ->
+    @name = 'RequestError'
+    @message = res.statusText
+    @stack = (new Error()).stack
+    @res = res
+
+    # LEGACY
     @type = res.type
     @url = res.url
     @status = res.status
@@ -29,10 +35,6 @@ class RequestError extends Error
     @formData = res.formData
     @json = res.json
     @text = res.text
-
-    @name = 'RequestError'
-    @message = res.statusText
-    @stack = (new Error()).stack
 
 statusCheck = (response) ->
   if response.status >= 200 and response.status < 300
