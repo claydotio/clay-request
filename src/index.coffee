@@ -56,13 +56,13 @@ toJson = (response) ->
         text
 
 module.exports = (url, options) ->
-  if _.isObject options?.body or _.isArray options?.body
+  if _.isPlainObject(options?.body) or _.isArray(options?.body)
     options.headers = _.defaults (options.headers or {}),
       'Accept': 'application/json'
       'Content-Type': 'application/json'
     options.body = JSON.stringify options.body
 
-  if _.isObject options?.qs
+  if _.isPlainObject(options?.qs)
     url += '?' + Qs.stringify options.qs
 
   (if window?
