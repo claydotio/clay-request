@@ -1,4 +1,4 @@
-_ = require 'lodash'
+_defaults = require 'lodash/defaults'
 gulp = require 'gulp'
 mocha = require 'gulp-mocha'
 KarmaServer = require('karma').Server
@@ -43,10 +43,10 @@ gulp.task 'lint', ->
     .pipe coffeelint.reporter()
 
 gulp.task 'test:browser', ['build:test'], (cb) ->
-  new KarmaServer(_.defaults(singleRun: true, karmaConf), cb).start()
+  new KarmaServer(_defaults(singleRun: true, karmaConf), cb).start()
 
 gulp.task 'test:browser:phantom', ['build:test'], (cb) ->
-  new KarmaServer(_.defaults({
+  new KarmaServer(_defaults({
     singleRun: true,
     browsers: ['PhantomJS']
   }, karmaConf), cb).start()

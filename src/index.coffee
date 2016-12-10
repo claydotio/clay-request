@@ -1,4 +1,6 @@
-_ = require 'lodash'
+_isPlainObject = require 'lodash/isPlainObject'
+_isArray = require 'lodash/isArray'
+_defaults = require 'lodash/defaults'
 Qs = require 'qs'
 
 Promise = if window?
@@ -56,13 +58,13 @@ toJson = (response) ->
         text
 
 module.exports = (url, options) ->
-  if _.isPlainObject(options?.body) or _.isArray(options?.body)
-    options.headers = _.defaults (options.headers or {}),
+  if _isPlainObject(options?.body) or _isArray(options?.body)
+    options.headers = _defaults (options.headers or {}),
       'Accept': 'application/json'
       'Content-Type': 'application/json'
     options.body = JSON.stringify options.body
 
-  if _.isPlainObject(options?.qs)
+  if _isPlainObject(options?.qs)
     url += '?' + Qs.stringify options.qs
 
   (if window?
